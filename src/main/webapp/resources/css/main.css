@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.avatar-sm{
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+}
+
+.jumbotron{
+	background-image:url('/resources/images/background.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	bacground-size: cover;
+}

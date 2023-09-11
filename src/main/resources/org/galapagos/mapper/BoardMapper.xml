@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.galapagos.mapper.BoardMapper">
+
+	<select id="getList" resultType="BoardVO"><![CDATA[select * from tbl_board]]></select> <!--CDATA: Compiled Data 라는 뜻 -->
+
+	<insert id="insert">
+		insert into tbl_board (title, content, writer)
+		values
+		(#{title}, #{content}, #{writer})
+	</insert>
+
+
+	<insert id="insertSelectKey">
+		insert into tbl_board (title, content, writer)
+		values (#{title},
+		#{content}, #{writer})
+
+		<selectKey resultType="Long" keyProperty="bno"
+			keyColumn="bno" order="AFTER">
+			SELECT LAST_INSERT_ID()  <!--오라클일 경우 select seq.NEXTVAL FROM DUAL? -->
+		</selectKey>
+	</insert>
+
+	<select id="read" resultType="BoardVO"> <!-- org.galapagos.domain. 생략 가능  -->
+		select * from tbl_board where bno =
+		#{bno}
+	</select>
+
+	<delete id="delete">
+		delete from tbl_board where bno = #{bno} <!-- oracle에서는 from 생략 가능 하지만 mysql에서는 from 생략 불가 -->
+	</delete>
+	
+	<update id="update">
+		update tbl_board set
+			title = #{title},
+			content = #{content},
+			writer = #{writer},
+			update_date = now()
+		where bno = #{bno}
+	</update>
+
+</mapper>
